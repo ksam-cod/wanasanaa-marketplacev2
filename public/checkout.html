@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure checkout — Wanasanaa Contemporary</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark" aria-hidden="true">W</span>
+        <span class="brand__text"><strong>Wanasanaa</strong><small>Contemporary</small></span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="/#archive">The archive</a>
+        <a href="/#commission">Commissions</a>
+        <a href="/dashboard.html" data-auth="studio" hidden>Studio dashboard</a>
+      </nav>
+      <div class="topbar__actions">
+        <a class="cart-link" href="/checkout.html"><span>Basket</span><span class="cart-count" data-cart-count hidden>0</span></a>
+        <a class="btn btn--quiet btn--sm" href="/login.html" data-auth="out">Sign in</a>
+        <span class="user-chip" data-auth="in" hidden>
+          <span data-user-name></span>
+          <button class="link-btn" type="button" data-logout>Sign out</button>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container section">
+    <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Secure checkout</p>
+    <h1 style="margin-top:8px">Your acquisition</h1>
+    <p class="muted" style="margin-top:8px">Reserved against live studio inventory, paid by M-Pesa in Kenyan shillings.</p>
+
+    <div class="checkout__grid" style="margin-top:26px">
+      <section class="panel">
+        <div class="panel__head">
+          <h2>Basket</h2>
+          <span class="small muted" id="basket-count"></span>
+        </div>
+
+        <div id="cart-items"></div>
+        <p class="empty" id="cart-empty" hidden>
+          Your basket is empty. <a href="/#archive" style="color:var(--primary)">Return to the archive</a>.
+        </p>
+
+        <div class="totals" id="cart-totals" hidden>
+          <div><span>Subtotal</span><span id="subtotal">KSh 0</span></div>
+          <div><span>Insured delivery</span><span id="shipping">KSh 0</span></div>
+          <div class="grand"><span>Total due</span><span id="total">KSh 0</span></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__head">
+          <h2>Delivery &amp; payment</h2>
+          <span class="badge badge--cyan">M-Pesa</span>
+        </div>
+
+        <p class="demo-note" id="signin-note" hidden>
+          You will need an account to complete checkout. <a href="/login.html?next=%2Fcheckout.html" style="color:var(--primary);font-weight:600">Sign in or create one</a>.
+        </p>
+
+        <form id="checkout-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="ship-name">Recipient name</label>
+              <input class="control" id="ship-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="ship-phone">Delivery phone</label>
+              <input class="control" id="ship-phone" name="phone" autocomplete="tel" placeholder="0712 345 678" required>
+            </div>
+            <div class="field field--wide">
+              <label for="ship-address">Delivery address</label>
+              <input class="control" id="ship-address" name="address" autocomplete="street-address" placeholder="Building, street, apartment" required>
+            </div>
+            <div class="field">
+              <label for="ship-city">Town / city</label>
+              <input class="control" id="ship-city" name="city" autocomplete="address-level2" placeholder="Nairobi" required>
+            </div>
+            <div class="field">
+              <label for="payment-phone">M-Pesa number</label>
+              <input class="control" id="payment-phone" name="mpesaPhone" autocomplete="tel" placeholder="0712 345 678" required>
+              <span class="hint">The STK prompt is sent to this number.</span>
+            </div>
+            <div class="field field--wide">
+              <label for="ship-notes">Studio notes (optional)</label>
+              <textarea class="control" id="ship-notes" name="notes" rows="2" maxlength="500" placeholder="Gift wrapping, preferred delivery window…"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit" id="place-order" style="margin-top:16px" disabled>
+            Pay <span id="pay-amount">KSh 0</span> with M-Pesa
+          </button>
+          <p class="form-status" id="checkout-status" role="status"></p>
+          <p class="form-note">
+            Pressing pay sends a PIN prompt to your phone. Wanasanaa never sees or stores your M-Pesa PIN.
+          </p>
+        </form>
+
+        <div id="payment-panel" hidden style="margin-top:18px"></div>
+        <div id="success-panel" hidden style="margin-top:18px"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__legal" style="border-top:0;padding-top:0">
+        <span>© <span data-year></span> Wanasanaa Contemporary.</span>
+        <span>Payments processed by Safaricom M-Pesa · KES only</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wanasanaa Contemporary — Artisan jewellery &amp; wearable sculpture</title>
+  <meta name="description" content="A curated marketplace of hand-forged jewellery and wearable sculpture from independent studios. Prices in Kenyan shillings, secure M-Pesa checkout.">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2300647c'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='18' fill='white' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#archive">Skip to the archive</a>
+
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark" aria-hidden="true">W</span>
+        <span class="brand__text">
+          <strong>Wanasanaa</strong>
+          <small>Contemporary</small>
+        </span>
+      </a>
+
+      <nav class="topnav" aria-label="Primary">
+        <a href="#archive">The archive</a>
+        <a href="#commission">Commissions</a>
+        <a href="/dashboard.html" data-auth="studio" hidden>Studio dashboard</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <a class="cart-link" href="/checkout.html">
+          <span>Basket</span>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </a>
+        <a class="btn btn--quiet btn--sm" href="/login.html" data-auth="out">Sign in</a>
+        <span class="user-chip" data-auth="in" hidden>
+          <span data-user-name></span>
+          <button class="link-btn" type="button" data-logout>Sign out</button>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero__copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Department 04 // Studio metalwork</p>
+        <h1>Artisan Jewellery: Wearable Sculptures &amp; Bespoke Metals</h1>
+        <p class="lede">
+          Hand-forged rings, kinetic neckwear, ethically sourced gemstone pendants and talismanic cuffs
+          handcrafted by master studio jewellers across the independent guild.
+        </p>
+      </div>
+      <aside class="verify-card">
+        <div>
+          <span class="label">Verified provenance</span>
+          <strong>100% Conflict-Free</strong>
+          <em>Fairmined &amp; recycled alloys</em>
+        </div>
+        <span class="brand__mark" aria-hidden="true">✓</span>
+      </aside>
+    </section>
+
+    <div class="container">
+      <section class="filters" aria-label="Filter the archive">
+        <div class="filters__group">
+          <span class="label">Discipline</span>
+          <div class="chips" id="category-chips"></div>
+        </div>
+        <div class="filters__group">
+          <span class="label">Metal spec</span>
+          <div class="chips" id="metal-chips"></div>
+        </div>
+        <div class="filters__controls">
+          <div class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Search pieces, studios, materials…" aria-label="Search the archive">
+          </div>
+          <label class="small muted" for="sort-select">Order</label>
+          <select class="control" id="sort-select" style="width:auto" aria-label="Sort works">
+            <option value="curated">Curated order</option>
+            <option value="newest">Newest arrivals</option>
+            <option value="price_asc">Price · low to high</option>
+            <option value="price_desc">Price · high to low</option>
+            <option value="rating">Collector rating</option>
+          </select>
+          <span class="filters__count" id="result-count">Loading the archive…</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="container section--tight" id="spotlight" hidden>
+      <div class="spotlight">
+        <div class="art-media spotlight__media" id="spotlight-media">
+          <img id="spotlight-image" alt="">
+          <span class="tag-float" id="spotlight-tag">Masterpiece spotlight</span>
+        </div>
+        <div class="spotlight__body">
+          <div class="row">
+            <span class="badge badge--solid">Masterpiece spotlight</span>
+            <span class="small muted" id="spotlight-studio"></span>
+          </div>
+          <h2 id="spotlight-title"></h2>
+          <p class="italic" id="spotlight-medium"></p>
+          <p class="lede" id="spotlight-description"></p>
+          <dl class="spec-grid" id="spotlight-specs"></dl>
+          <div class="price-row">
+            <div>
+              <span class="label">Private acquisition</span>
+              <p class="price" id="spotlight-price"></p>
+            </div>
+            <div class="row">
+              <a class="btn btn--ghost btn--sm" id="spotlight-detail" href="/">View piece</a>
+              <button class="btn btn--primary btn--sm" type="button" id="spotlight-acquire">Acquire</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section" id="archive">
+      <div class="section__head">
+        <div>
+          <p class="eyebrow">The curated archive</p>
+          <h2>Original studio creations</h2>
+        </div>
+        <p class="muted small">Each piece unique or limited to a small casting run</p>
+      </div>
+      <div class="art-grid" id="artwork-grid"></div>
+      <p class="empty" id="archive-empty" hidden>No pieces match those filters yet. Try widening the curation.</p>
+      <div class="center" style="margin-top:26px">
+        <button class="btn btn--ghost" type="button" id="load-more" hidden>Load more works</button>
+      </div>
+    </section>
+
+    <section class="container section" id="commission">
+      <div class="commission">
+        <div class="commission__copy">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Private commissions</p>
+          <h2>Commission a bespoke wearable artifact</h2>
+          <p class="muted">
+            Collaborate directly with an accredited master jeweller to forge an original heirloom piece
+            around inherited stones, specific finger contours or a bespoke sacred geometry.
+          </p>
+          <div class="commission__stats">
+            <div><strong>14 days</strong><span class="small muted">Average wax rendering and casting turnaround</span></div>
+            <div><strong>88%</strong><span class="small muted">Of every sale forwarded to the bench jeweller</span></div>
+          </div>
+          <p class="small muted">All deposits held under escrow until final high-magnification proof sign-off.</p>
+        </div>
+
+        <form class="commission__form" id="commission-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="commission-object">Target object</label>
+              <select class="control" id="commission-object" name="object">
+                <option>Sculptural solitaire ring</option>
+                <option>Kinetic pendant or choker</option>
+                <option>Talismanic bracelet or cuff</option>
+                <option>Alternative wedding suite</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="commission-budget">Estimated budget (KES)</label>
+              <select class="control" id="commission-budget" name="budget">
+                <option value="150000">KSh 50,000 – 150,000</option>
+                <option value="350000" selected>KSh 150,000 – 350,000</option>
+                <option value="800000">KSh 350,000 – 800,000</option>
+                <option value="2000000">KSh 800,000+ · haute joaillerie</option>
+              </select>
+            </div>
+            <div class="field field--wide">
+              <label for="commission-studio">Preferred studio (optional)</label>
+              <select class="control" id="commission-studio" name="artistId">
+                <option value="">Open to curator matching</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="commission-name">Your name</label>
+              <input class="control" id="commission-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="commission-email">Email</label>
+              <input class="control" id="commission-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field field--wide">
+              <label for="commission-message">Aesthetic vision &amp; stone desires</label>
+              <textarea class="control" id="commission-message" name="message" rows="3" required placeholder="Describe silhouettes, preferred raw minerals, metal karat preferences, or emotional intentions…"></textarea>
+            </div>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit" id="commission-submit">Submit atelier commission brief</button>
+          <p class="form-status" id="commission-status" role="status"></p>
+          <p class="form-note">Sent directly to the selected studio. We reply within two studio days.</p>
+        </form>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="trust-strip">
+        <div>
+          <span class="mark" aria-hidden="true">✦</span>
+          <div><strong>Certificate of authenticity</strong><p>Every creation arrives with tamper-proof provenance, signed by the studio.</p></div>
+        </div>
+        <div>
+          <span class="mark" aria-hidden="true">✎</span>
+          <div><strong>Direct artist support</strong><p>88% of primary sales value goes straight to independent artisans.</p></div>
+        </div>
+        <div>
+          <span class="mark" aria-hidden="true">⇢</span>
+          <div><strong>Insured delivery</strong><p>White-glove couriers with climate-safe packaging and full transit cover.</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <strong>Wanasanaa</strong>
+          <small>Contemporary</small>
+          <p style="margin-top:10px">Fine art, handcrafted jewellery and wearable sculpture from independent studios.</p>
+        </div>
+        <div>
+          <h4>Collect</h4>
+          <p><a href="#archive">The archive</a></p>
+          <p><a href="#commission">Private commissions</a></p>
+          <p><a href="/checkout.html">Secure checkout</a></p>
+        </div>
+        <div>
+          <h4>Studios</h4>
+          <p><a href="/login.html?role=artist">Apply for a studio account</a></p>
+          <p><a href="/dashboard.html">Artist dashboard</a></p>
+          <p><a href="#commission">Talk to a curator</a></p>
+        </div>
+        <div>
+          <h4>Locale &amp; currency</h4>
+          <p class="kes">KSh · Kenyan shilling</p>
+          <p>Nairobi · Worldwide insured shipping</p>
+          <p>Payments by M-Pesa</p>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <span>© <span data-year></span> Wanasanaa Contemporary. All prices include VAT where applicable.</span>
+        <span>Secure M-Pesa STK checkout · No card details stored</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/home.js"></script>
+</body>
+</html>

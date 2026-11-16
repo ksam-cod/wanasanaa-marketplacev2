@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio dashboard — Wanasanaa Contemporary</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark" aria-hidden="true">W</span>
+        <span class="brand__text"><strong>Wanasanaa</strong><small>Contemporary</small></span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="/#archive">The archive</a>
+        <a href="/dashboard.html" aria-current="page">Studio dashboard</a>
+        <a href="/#commission">Commissions</a>
+      </nav>
+      <div class="topbar__actions">
+        <a class="cart-link" href="/checkout.html"><span>Basket</span><span class="cart-count" data-cart-count hidden>0</span></a>
+        <span class="user-chip" data-auth="in" hidden>
+          <span data-user-name></span>
+          <button class="link-btn" type="button" data-logout>Sign out</button>
+        </span>
+        <a class="btn btn--quiet btn--sm" href="/login.html" data-auth="out">Sign in</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div id="gate" hidden class="panel" style="max-width:620px;margin:0 auto;text-align:center">
+      <h1 style="font-size:28px" id="gate-title">Studio access</h1>
+      <p class="muted" id="gate-message" style="margin:10px 0 18px">Sign in with a studio account to manage your pieces and earnings.</p>
+      <div class="row" style="justify-content:center">
+        <a class="btn btn--primary" href="/login.html?next=%2Fdashboard.html">Sign in</a>
+        <a class="btn btn--ghost" href="/login.html?role=artist">Open a studio account</a>
+      </div>
+    </div>
+
+    <div id="dashboard" hidden>
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Studio dashboard</p>
+          <h1 id="studio-title" style="margin-top:6px">Your studio</h1>
+          <p class="muted small" id="studio-meta"></p>
+        </div>
+        <div class="row">
+          <button class="btn btn--primary" type="button" id="open-add">+ Add a piece</button>
+        </div>
+      </div>
+
+      <div class="kpis" id="kpis" style="margin-top:22px"></div>
+
+      <div class="dash-grid" style="margin-top:20px">
+        <section class="panel" id="add-panel" hidden style="grid-column:1/-1">
+          <div class="panel__head">
+            <div>
+              <h2>Add a piece to the archive</h2>
+              <p class="small muted">Set the price tag in Kenyan shillings and how many you have for collectors.</p>
+            </div>
+            <button class="link-btn" type="button" id="close-add">Close</button>
+          </div>
+
+          <form id="artwork-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="art-title">Title</label>
+                <input class="control" id="art-title" name="title" required maxlength="160" placeholder="Fluidic Horizon Cuff">
+              </div>
+              <div class="field">
+                <label for="art-category">Discipline</label>
+                <input class="control" id="art-category" name="category" list="category-options" value="Handcrafted Jewelry" required>
+                <datalist id="category-options">
+                  <option>Handcrafted Jewelry</option>
+                  <option>Fine Art &amp; Canvas</option>
+                  <option>Ceramic &amp; Pottery</option>
+                  <option>Architectural Sculptures</option>
+                  <option>Wearable Haute Crafts</option>
+                </datalist>
+              </div>
+              <div class="field">
+                <label for="art-medium">Medium / technique</label>
+                <input class="control" id="art-medium" name="medium" maxlength="160" placeholder="Hand-forged sterling silver">
+              </div>
+              <div class="field">
+                <label for="art-metal">Metal</label>
+                <input class="control" id="art-metal" name="metal" maxlength="80" placeholder="925 Silver">
+              </div>
+              <div class="field">
+                <label for="art-gemstone">Stone</label>
+                <input class="control" id="art-gemstone" name="gemstone" maxlength="80" placeholder="Paraíba tourmaline">
+              </div>
+              <div class="field">
+                <label for="art-dimensions">Dimensions</label>
+                <input class="control" id="art-dimensions" name="dimensions" maxlength="120" placeholder="58mm inner diameter">
+              </div>
+              <div class="field">
+                <label for="art-price">Price tag (KES)</label>
+                <input class="control" id="art-price" name="price_kes" type="number" min="1" step="1" required placeholder="48000">
+                <span class="hint">Whole Kenyan shillings — this is what the collector pays.</span>
+              </div>
+              <div class="field">
+                <label for="art-stock">Pieces available</label>
+                <input class="control" id="art-stock" name="stock" type="number" min="0" max="9999" step="1" value="1" required>
+                <span class="hint">Use 1 for a unique piece, more for a small casting run.</span>
+              </div>
+              <div class="field">
+                <label for="art-image">Photograph upload</label>
+                <input class="control" id="art-image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/avif">
+                <span class="hint">JPG, PNG, WebP or AVIF · up to 5 MB.</span>
+              </div>
+              <div class="field">
+                <label for="art-image-url">…or image URL</label>
+                <input class="control" id="art-image-url" name="image_url" type="url" placeholder="https://…">
+              </div>
+              <div class="field field--wide">
+                <label for="art-description">Provenance note</label>
+                <textarea class="control" id="art-description" name="description" rows="3" maxlength="4000" placeholder="How it was made, where the stone is from, how it wears."></textarea>
+              </div>
+              <div class="field">
+                <label for="art-status">Visibility</label>
+                <select class="control" id="art-status" name="status">
+                  <option value="published">Published</option>
+                  <option value="draft">Draft — keep private</option>
+                </select>
+              </div>
+              <div class="field field--check" style="align-self:end">
+                <input type="checkbox" id="art-unique" name="one_of_a_kind" value="true">
+                <label for="art-unique" style="font-size:12px;letter-spacing:0;text-transform:none;color:var(--ink-soft)">One-of-a-kind piece</label>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top:16px">
+              <button class="btn btn--primary" type="submit" id="art-submit">Publish piece</button>
+              <p class="form-status" id="art-status-message" role="status"></p>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" style="grid-column:1/-1">
+          <div class="panel__head">
+            <div>
+              <h2>Inventory &amp; price tags</h2>
+              <p class="small muted">What you have left for collectors, what has sold, and what it earned.</p>
+            </div>
+            <span class="small muted" id="inventory-summary"></span>
+          </div>
+          <div class="table-wrap">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th>Piece</th>
+                  <th class="num">Price (KES)</th>
+                  <th class="num">In stock</th>
+                  <th class="num">Sold</th>
+                  <th class="num">Revenue</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="inventory-body"></tbody>
+            </table>
+          </div>
+          <p class="dash-empty" id="inventory-empty" hidden>No pieces yet — press “Add a piece” to publish your first work.</p>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2>Earnings</h2>
+            <span class="badge badge--cyan">KES</span>
+          </div>
+          <div class="totals" id="earnings-totals"></div>
+          <hr class="divider">
+          <h3 style="font-family:var(--sans);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--outline);margin-bottom:10px">Monthly net</h3>
+          <div class="monthly" id="monthly-earnings"></div>
+          <p class="dash-note" id="commission-note" style="margin-top:12px"></p>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head">
+            <h2>Collectors</h2>
+            <span class="small muted" id="customer-count"></span>
+          </div>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>Collector</th><th class="num">Pieces</th><th class="num">Spend</th><th>Last order</th></tr></thead>
+              <tbody id="customer-body"></tbody>
+            </table>
+          </div>
+          <p class="dash-empty" id="customer-empty" hidden>No collectors yet.</p>
+        </section>
+
+        <section class="panel" style="grid-column:1/-1">
+          <div class="panel__head"><h2>Recent sales</h2><span class="small muted">Gross sale, studio net after commission</span></div>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>Piece</th><th>Collector</th><th>Order</th><th>Date</th><th class="num">Gross</th><th class="num">Net</th></tr></thead>
+              <tbody id="sales-body"></tbody>
+            </table>
+          </div>
+          <p class="dash-empty" id="sales-empty" hidden>Sales will appear here as collectors acquire your work.</p>
+        </section>
+
+        <section class="panel" style="grid-column:1/-1">
+          <div class="panel__head">
+            <div>
+              <h2>Inquiries</h2>
+              <p class="small muted">Questions and commission briefs routed to your studio.</p>
+            </div>
+            <span class="badge" id="inquiry-badge">0 new</span>
+          </div>
+          <div class="stack" id="inquiry-list"></div>
+          <p class="dash-empty" id="inquiry-empty" hidden>No inquiries yet. When a collector asks about a piece, it lands here.</p>
+        </section>
+
+        <section class="panel" style="grid-column:1/-1">
+          <div class="panel__head">
+            <h2>Earnings ledger</h2>
+            <span class="small muted">One line per piece sold</span>
+          </div>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>Date</th><th>Piece</th><th>Order</th><th class="num">Gross</th><th class="num">Commission</th><th class="num">Net</th><th>Status</th></tr></thead>
+              <tbody id="ledger-body"></tbody>
+            </table>
+          </div>
+          <p class="dash-empty" id="ledger-empty" hidden>No earnings recorded yet.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__legal" style="border-top:0;padding-top:0">
+        <span>© <span data-year></span> Wanasanaa Contemporary.</span>
+        <span>Studio earnings settled in Kenyan shillings</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Piece — Wanasanaa Contemporary</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#piece">Skip to the piece</a>
+
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark" aria-hidden="true">W</span>
+        <span class="brand__text"><strong>Wanasanaa</strong><small>Contemporary</small></span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="/#archive">The archive</a>
+        <a href="/#commission">Commissions</a>
+        <a href="/dashboard.html" data-auth="studio" hidden>Studio dashboard</a>
+      </nav>
+      <div class="topbar__actions">
+        <a class="cart-link" href="/checkout.html"><span>Basket</span><span class="cart-count" data-cart-count hidden>0</span></a>
+        <a class="btn btn--quiet btn--sm" href="/login.html" data-auth="out">Sign in</a>
+        <span class="user-chip" data-auth="in" hidden>
+          <span data-user-name></span>
+          <button class="link-btn" type="button" data-logout>Sign out</button>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container section" id="piece">
+    <a class="back-link" href="/#archive">← Back to the archive</a>
+    <p class="empty" id="detail-error" hidden>That piece could not be found. <a href="/#archive" style="color:var(--primary)">Return to the archive</a>.</p>
+
+    <div id="detail-content" hidden>
+      <div class="detail__grid">
+        <div class="art-media detail__media">
+          <img id="detail-image" alt="">
+          <span class="tag-float" id="detail-tag"></span>
+        </div>
+
+        <div class="detail__body">
+          <p class="eyebrow" id="detail-category"></p>
+          <h1 id="detail-title"></h1>
+          <p class="italic detail__medium" id="detail-medium"></p>
+          <p class="lede" id="detail-description"></p>
+
+          <dl class="spec-grid" id="detail-specs"></dl>
+
+          <div class="panel">
+            <div class="price-row">
+              <div>
+                <span class="label">Private acquisition</span>
+                <p class="price" id="detail-price"></p>
+              </div>
+              <p class="stock-line" id="detail-stock"></p>
+            </div>
+            <div class="row" style="margin-top:16px">
+              <div class="qty">
+                <button type="button" id="qty-down" aria-label="Decrease quantity">−</button>
+                <input id="qty" value="1" readonly aria-label="Quantity">
+                <button type="button" id="qty-up" aria-label="Increase quantity">+</button>
+              </div>
+              <button class="btn btn--quiet" type="button" id="add-to-basket">Add to basket</button>
+              <button class="btn btn--primary" type="button" id="buy-now">Buy with M-Pesa</button>
+            </div>
+            <p class="form-note" style="margin-top:12px">
+              Secure M-Pesa STK prompt · insured delivery · every sale supports the studio directly.
+            </p>
+          </div>
+
+          <div class="panel studio">
+            <span class="brand__mark brand__mark--sm" id="studio-initials" aria-hidden="true"></span>
+            <div>
+              <strong id="studio-name"></strong>
+              <p class="small muted" id="studio-location"></p>
+            </div>
+            <span class="badge badge--cyan" id="studio-verified" hidden>Verified studio</span>
+          </div>
+          <p class="small muted" id="studio-bio"></p>
+        </div>
+      </div>
+
+      <section class="section" id="reviews">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Verified acquisitions</p>
+            <h2>Collector reviews</h2>
+          </div>
+          <p class="rating" id="review-summary"></p>
+        </div>
+        <div class="reviews" id="review-list"></div>
+        <p class="empty" id="review-empty" hidden>No reviews yet — this piece is waiting for its first collector note.</p>
+
+        <form class="panel" id="review-form" hidden style="margin-top:18px">
+          <h3 style="margin-bottom:10px">Write a review</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label for="review-rating">Rating</label>
+              <select class="control" id="review-rating" required>
+                <option value="5">5 — Exceptional</option>
+                <option value="4">4 — Beautifully made</option>
+                <option value="3">3 — As described</option>
+                <option value="2">2 — Needs attention</option>
+                <option value="1">1 — Did not meet expectations</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="review-title">Headline (optional)</label>
+              <input class="control" id="review-title" maxlength="120" placeholder="The seam is the point">
+            </div>
+            <div class="field field--wide">
+              <label for="review-body">Your note</label>
+              <textarea class="control" id="review-body" rows="4" required minlength="10" placeholder="How does it wear? How was the studio's communication?"></textarea>
+            </div>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn btn--primary" type="submit">Publish review</button>
+            <p class="form-status" id="review-status" role="status"></p>
+          </div>
+        </form>
+        <p class="form-note" id="review-locked" hidden style="margin-top:14px"></p>
+      </section>
+
+      <section class="section" id="inquire">
+        <div class="panel">
+          <div class="section__head" style="margin-bottom:12px">
+            <div>
+              <p class="eyebrow">Private inquiry</p>
+              <h2>Ask the studio about this piece</h2>
+            </div>
+          </div>
+          <p class="muted small" style="margin-bottom:16px">
+            Sizing, stone provenance, a bespoke variant or a private viewing — your message goes straight to the making studio.
+          </p>
+          <form id="inquiry-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="inquiry-name">Your name</label>
+                <input class="control" id="inquiry-name" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="inquiry-email">Email</label>
+                <input class="control" id="inquiry-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="inquiry-phone">Phone (optional)</label>
+                <input class="control" id="inquiry-phone" name="phone" autocomplete="tel" placeholder="0712 345 678">
+              </div>
+              <div class="field">
+                <label for="inquiry-budget">Budget in KES (optional)</label>
+                <input class="control" id="inquiry-budget" name="budget" type="number" min="1" step="1000" placeholder="150000">
+              </div>
+              <div class="field field--wide">
+                <label for="inquiry-message">Your question</label>
+                <textarea class="control" id="inquiry-message" name="message" rows="3" required minlength="10" placeholder="Could this be resized to a US 7, and is a darker tourmaline possible?"></textarea>
+              </div>
+            </div>
+            <div class="row" style="margin-top:14px">
+              <button class="btn btn--primary" type="submit">Send inquiry to the studio</button>
+              <p class="form-status" id="inquiry-status" role="status"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__legal" style="border-top:0;padding-top:0">
+        <span>© <span data-year></span> Wanasanaa Contemporary.</span>
+        <span>All prices in Kenyan shillings · Payments by M-Pesa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/artwork.js"></script>
+</body>
+</html>

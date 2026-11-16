@@ -1,0 +1,30 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": false,
+  "files.exclude": {
+    ".pgdata": true
+  },
+  "search.exclude": {
+    "node_modules": true,
+    ".pgdata": true,
+    "download": true,
+    "uploads": true
+  },
+  "files.associations": {
+    "*.http": "http"
+  },
+  "sqltools.connections": [
+    {
+      "name": "Wanasanaa (local)",
+      "driver": "PostgreSQL",
+      "server": "127.0.0.1",
+      "port": 5433,
+      "database": "wanasanaa",
+      "username": "postgres",
+      "password": ""
+    }
+  ]
+}

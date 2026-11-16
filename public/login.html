@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in — Wanasanaa Contemporary</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark" aria-hidden="true">W</span>
+        <span class="brand__text"><strong>Wanasanaa</strong><small>Contemporary</small></span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="/#archive">The archive</a>
+        <a href="/#commission">Commissions</a>
+      </nav>
+      <div class="topbar__actions">
+        <a class="cart-link" href="/checkout.html"><span>Basket</span><span class="cart-count" data-cart-count hidden>0</span></a>
+        <a class="btn btn--quiet btn--sm" href="/" data-auth="in" hidden>Back to the gallery</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="auth-wrap">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Collector &amp; studio access</p>
+      <h1 style="margin:10px 0 8px">Enter the gallery</h1>
+      <p class="muted small" style="margin-bottom:20px">Collect, review, and track your studio's earnings in Kenyan shillings.</p>
+
+      <div class="panel">
+        <div class="auth-tabs" role="tablist" aria-label="Authentication">
+          <button type="button" role="tab" id="tab-signin" aria-selected="true" aria-controls="signin-form">Sign in</button>
+          <button type="button" role="tab" id="tab-register" aria-selected="false" aria-controls="register-form">Create account</button>
+        </div>
+
+        <form id="signin-form" novalidate>
+          <div class="stack">
+            <div class="field">
+              <label for="signin-email">Email</label>
+              <input class="control" id="signin-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="signin-password">Password</label>
+              <input class="control" id="signin-password" name="password" type="password" autocomplete="current-password" required>
+            </div>
+            <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+            <p class="form-status" id="signin-status" role="status"></p>
+          </div>
+          <p class="demo-note" style="margin-top:14px">
+            Demo accounts — password <code>Wanasanaa2026!</code><br>
+            Collector <code>collector@wanasanaa.test</code><br>
+            Studio <code>haku@wanasanaa.test</code>
+          </p>
+        </form>
+
+        <form id="register-form" hidden novalidate>
+          <div class="stack">
+            <div class="field">
+              <label for="register-name">Full name</label>
+              <input class="control" id="register-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="register-email">Email</label>
+              <input class="control" id="register-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="register-password">Password</label>
+              <input class="control" id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+              <span class="hint">At least 8 characters.</span>
+            </div>
+            <div class="field">
+              <label>I am joining as</label>
+              <div class="role-toggle">
+                <label><input type="radio" name="role" value="collector" checked> A collector</label>
+                <label><input type="radio" name="role" value="artist"> A studio / artist</label>
+              </div>
+            </div>
+
+            <div id="artist-fields" hidden class="stack">
+              <div class="field">
+                <label for="register-studio">Studio name</label>
+                <input class="control" id="register-studio" name="studioName" placeholder="e.g. Mael Nyx Atelier">
+              </div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="register-location">Location</label>
+                  <input class="control" id="register-location" name="location" placeholder="Nairobi">
+                </div>
+                <div class="field">
+                  <label for="register-discipline">Discipline</label>
+                  <input class="control" id="register-discipline" name="discipline" placeholder="Hand-forged silver">
+                </div>
+              </div>
+              <div class="field">
+                <label for="register-bio">Studio note</label>
+                <textarea class="control" id="register-bio" name="bio" rows="2" maxlength="1000" placeholder="How do you make, and what should collectors know?"></textarea>
+              </div>
+            </div>
+
+            <button class="btn btn--primary btn--block" type="submit">Create my account</button>
+            <p class="form-status" id="register-status" role="status"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__legal" style="border-top:0;padding-top:0">
+        <span>© <span data-year></span> Wanasanaa Contemporary.</span>
+        <span>Payments by M-Pesa · Prices in KES</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/login.js"></script>
+</body>
+</html>

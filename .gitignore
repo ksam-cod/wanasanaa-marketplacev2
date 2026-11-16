@@ -1,0 +1,9 @@
+node_modules/
+download/
+.env
+.pgdata/
+.pgdata-test/
+uploads/*
+!uploads/.gitkeep
+coverage/
+*.log

@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install dependencies",
+      "type": "shell",
+      "command": "npm install",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "DB: start local PostgreSQL",
+      "type": "shell",
+      "command": "npm run db:start",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "DB: setup (schema + seed)",
+      "type": "shell",
+      "command": "npm run db:setup",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "DB: reset demo data",
+      "type": "shell",
+      "command": "npm run db:reset",
+      "promptOnClose": false,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "API: dev (watch)",
+      "type": "shell",
+      "command": "npm run dev",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "API: start",
+      "type": "shell",
+      "command": "npm start",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Test: API suite",
+      "type": "shell",
+      "command": "npm test",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Marketplace: start everything",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "DB: start local PostgreSQL",
+        "DB: setup (schema + seed)",
+        "API: dev (watch)"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

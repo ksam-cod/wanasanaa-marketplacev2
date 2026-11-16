@@ -1,0 +1,182 @@
+### Wanasanaa API — run with the VS Code REST Client extension
+### Sign in first: REST Client reuses cookies on subsequent requests in this file.
+
+@base = http://localhost:4000
+
+### Health
+GET {{base}}/api/health
+
+### Public configuration (currency, shipping, M-Pesa mode)
+GET {{base}}/api/config
+
+### Gallery — first page, curated order
+GET {{base}}/api/artworks?page=1&limit=12&sort=curated
+
+### Gallery — filter and search (price in KES)
+GET {{base}}/api/artworks?category=Handcrafted%20Jewelry&metal=925%20Silver&q=ring&sort=price_asc
+
+### Facets for the filter ribbon
+GET {{base}}/api/artworks/facets
+
+### Spotlight piece
+GET {{base}}/api/artworks/featured
+
+### Studios
+GET {{base}}/api/artists
+
+### ---------------------------------------------------------------
+### Sign in as a studio (has seeded sales and earnings)
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "haku@wanasanaa.test",
+  "password": "Wanasanaa2026!"
+}
+
+### Who am I?
+GET {{base}}/api/auth/me
+
+### Studio dashboard summary (earnings, inventory, customers)
+GET {{base}}/api/artist/summary
+
+### Inventory with sales and stock
+GET {{base}}/api/artist/artworks
+
+### Earnings ledger in KES
+GET {{base}}/api/artist/earnings
+
+### Collectors and inquiries
+GET {{base}}/api/artist/customers
+###
+GET {{base}}/api/artist/inquiries
+
+### Add a piece (JSON with a hosted image)
+POST {{base}}/api/artist/artworks
+Content-Type: application/json
+
+{
+  "title": "Verdigris Fold Ring",
+  "description": "A folded silver band with a hand-cut patina seam.",
+  "medium": "Hand-folded sterling silver",
+  "category": "Handcrafted Jewelry",
+  "metal": "925 Silver",
+  "gemstone": null,
+  "dimensions": "US 7",
+  "price_kes": 52000,
+  "stock": 2,
+  "one_of_a_kind": false,
+  "image_url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e",
+  "status": "published"
+}
+
+### Re-price a piece (replace the id)
+PATCH {{base}}/api/artist/artworks/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{ "price_kes": 56000, "stock": 3 }
+
+### Archive a piece
+DELETE {{base}}/api/artist/artworks/00000000-0000-0000-0000-000000000000
+
+### Sign out
+POST {{base}}/api/auth/logout
+
+### ---------------------------------------------------------------
+### Sign in as the demo collector
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "collector@wanasanaa.test",
+  "password": "Wanasanaa2026!"
+}
+
+### Create a collector account
+POST {{base}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Wanjiku Mwangi",
+  "email": "wanjiku@example.com",
+  "password": "a-long-password",
+  "role": "collector",
+  "phone": "0712345678"
+}
+
+### ---------------------------------------------------------------
+### Checkout — replace the artwork id with a published piece
+### (simulation mode: the order is reserved and a fake STK prompt is recorded)
+POST {{base}}/api/orders
+Content-Type: application/json
+
+{
+  "items": [{ "artworkId": "00000000-0000-0000-0000-000000000000", "quantity": 1 }],
+  "phone": "0712345678",
+  "shipping": {
+    "name": "Achieng Odhiambo",
+    "phone": "0712345678",
+    "address": "12 Ngong Road",
+    "city": "Nairobi"
+  },
+  "notes": "Gift wrapping please"
+}
+
+### My orders
+GET {{base}}/api/orders
+
+### Order + payment state (replace the id)
+GET {{base}}/api/orders/00000000-0000-0000-0000-000000000000
+
+### Complete a simulated payment for that order
+POST {{base}}/api/orders/00000000-0000-0000-0000-000000000000/simulate-payment
+Content-Type: application/json
+
+{ "outcome": "success" }
+
+### Cancel an unpaid order and release stock
+POST {{base}}/api/orders/00000000-0000-0000-0000-000000000000/cancel
+
+### Review a purchased piece
+POST {{base}}/api/artworks/00000000-0000-0000-0000-000000000000/reviews
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "title": "Beautifully finished",
+  "body": "The seam catches the light exactly as photographed."
+}
+
+### Inquire about a piece (no session required)
+POST {{base}}/api/inquiries
+Content-Type: application/json
+
+{
+  "artworkId": "00000000-0000-0000-0000-000000000000",
+  "name": "Wanjiku Mwangi",
+  "email": "wanjiku@example.com",
+  "subject": "Sizing question",
+  "message": "Could this be made in a US 7 with a wider band?",
+  "budgetKes": 90000
+}
+
+### Simulate a Daraja callback (unknown ids are acknowledged and ignored)
+POST {{base}}/api/webhooks/mpesa/callback
+Content-Type: application/json
+
+{
+  "Body": {
+    "stkCallback": {
+      "MerchantRequestID": "local-test",
+      "CheckoutRequestID": "ws_CO_SIM_NOT_REAL",
+      "ResultCode": 0,
+      "ResultDesc": "The service request is processed successfully.",
+      "CallbackMetadata": {
+        "Item": [
+          { "Name": "Amount", "Value": 41000 },
+          { "Name": "MpesaReceiptNumber", "Value": "LOCALTEST1" }
+        ]
+      }
+    }
+  }
+}
