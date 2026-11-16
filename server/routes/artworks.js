@@ -144,11 +144,11 @@ router.get('/artworks/:id', async (req, res) => {
          SELECT artwork_id, AVG(rating) AS avg_rating, COUNT(*)::int AS review_count
            FROM reviews GROUP BY artwork_id
        ) rv ON rv.artwork_id = a.id
-      WHERE a.id = $1`,
+      WHERE a.id = $1 AND a.status = 'published'`,
     [req.params.id],
   );
   const artwork = rows[0];
-  if (!artwork || artwork.status === 'archived') throw notFound('Artwork not found.');
+  if (!artwork) throw notFound('Artwork not found.');
 
   const reviews = await query(
     `SELECT r.id, r.rating, r.title, r.body, r.created_at,

@@ -3,7 +3,8 @@ import { addToCart, artworkHref, bootChrome } from './ui.js';
 
 const state = {
   page: 1,
-  limit: 12,
+  limit: new URLSearchParams(location.search).get('all') === '1' ? 48 : 12,
+  showAll: new URLSearchParams(location.search).get('all') === '1',
   pages: 1,
   category: '',
   metal: '',
@@ -72,10 +73,19 @@ async function loadArtworks(reset = false) {
     const data = await api(`/api/artworks?${params}`);
     state.pages = data.pagination.pages;
     const grid = $('#artwork-grid');
-    grid.insertAdjacentHTML('beforeend', data.artworks.map(renderCard).join(''));
+    let artworks = data.artworks;
+    if (state.showAll && data.pagination.pages > 1) {
+      for (let nextPage = 2; nextPage <= data.pagination.pages; nextPage += 1) {
+        const nextParams = new URLSearchParams(params);
+        nextParams.set('page', String(nextPage));
+        const nextPageData = await api(`/api/artworks?${nextParams}`);
+        artworks.push(...nextPageData.artworks);
+      }
+    }
+    grid.insertAdjacentHTML('beforeend', artworks.map(renderCard).join(''));
 
     $('#archive-empty').hidden = grid.children.length > 0;
-    $('#load-more').hidden = state.page >= state.pages;
+    $('#load-more').hidden = state.showAll || state.page >= state.pages;
     $('#result-count').textContent = `${data.pagination.total} studio ${data.pagination.total === 1 ? 'work' : 'works'}`;
   } catch (error) {
     toast(error.message, 'error');
